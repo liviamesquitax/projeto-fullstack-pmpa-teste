@@ -1,0 +1,27 @@
+{
+  "name": "projeto-fullstack-pmpa-teste",
+  "version": "1.0.0",
+  "description": "CÓDIGO FONTE DE PROJETO CRIADO PARA DESENVOLVIMENTO PESSOAL E TESTE PARA O INGRESSO NO TIME DE SISTEMAS COMO VOLUNTÁRIA CIVIL DA PMPA.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liviamesquitax/projeto-fullstack-pmpa-teste.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/liviamesquitax/projeto-fullstack-pmpa-teste/issues"
+  },
+  "homepage": "https://github.com/liviamesquitax/projeto-fullstack-pmpa-teste#readme",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "mongoose": "^9.3.1"
+  }
+}
