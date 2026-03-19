@@ -7,11 +7,14 @@ const router = express.Router();
 // Importa o controller
 const userController = require("../controllers/userController");
 
-// Rotas do CRUD
-router.post("/usuarios", userController.criarUsuario);
-router.get("/usuarios", userController.listarUsuarios);
-router.put("/usuarios/:id", userController.atualizarUsuario);
-router.delete("/usuarios/:id", userController.deletarUsuario);
+// Rotas do CRUD (agora sem /usuarios aqui)
+router.post("/", userController.criarUsuario);
+router.get("/", userController.listarUsuarios);
+router.put("/:id", userController.atualizarUsuario);
+router.delete("/:id", userController.deletarUsuario);
+
+// Rota de login
+router.post("/login", userController.loginUsuario);
 
 // Exporta o router
 module.exports = router;

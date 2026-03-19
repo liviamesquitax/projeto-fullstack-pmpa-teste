@@ -16,8 +16,8 @@ connectDB();
 // Permite receber JSON no body
 app.use(express.json());
 
-// Usa as rotas de usuários
-app.use(userRoutes);
+// Usa as rotas de usuários com prefixo /usuarios
+app.use("/usuarios", userRoutes);
 
 // Rota de teste
 app.get("/teste", (req, res) => {
