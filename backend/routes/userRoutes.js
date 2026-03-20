@@ -7,14 +7,17 @@ const router = express.Router();
 // Importa o controller
 const userController = require("../controllers/userController");
 
-// Rotas do CRUD (agora sem /usuarios aqui)
-router.post("/", userController.criarUsuario);
-router.get("/", userController.listarUsuarios);
-router.put("/:id", userController.atualizarUsuario);
-router.delete("/:id", userController.deletarUsuario);
+// Importa o middleware de autenticação
+const authMiddleware = require("../middlewares/authMiddleware");
 
-// Rota de login
-router.post("/login", userController.loginUsuario);
+// Rotas públicas
+router.post("/", userController.criarUsuario);      // criar usuário
+router.post("/login", userController.loginUsuario); // login
+
+// Rotas protegidas
+router.get("/", authMiddleware, userController.listarUsuarios);
+router.put("/:id", authMiddleware, userController.atualizarUsuario);
+router.delete("/:id", authMiddleware, userController.deletarUsuario);
 
 // Exporta o router
 module.exports = router;
