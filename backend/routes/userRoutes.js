@@ -7,17 +7,26 @@ const router = express.Router();
 // Importa o controller
 const userController = require("../controllers/userController");
 
-// Importa o middleware de autenticação
+// Importa os middlewares
 const authMiddleware = require("../middlewares/authMiddleware");
+const roleMiddleware = require("../middlewares/roleMiddleware");
 
-// Rotas públicas
-router.post("/", userController.criarUsuario);      // criar usuário
-router.post("/login", userController.loginUsuario); // login
+// Rotas do CRUD
+router.post("/usuarios", userController.criarUsuario);
 
-// Rotas protegidas
-router.get("/", authMiddleware, userController.listarUsuarios);
-router.put("/:id", authMiddleware, userController.atualizarUsuario);
-router.delete("/:id", authMiddleware, userController.deletarUsuario);
+// Login
+router.post("/login", userController.loginUsuario);
+
+// Apenas admin e super podem listar usuários
+router.get(
+  "/usuarios",
+  authMiddleware,
+  roleMiddleware(["admin", "super"]),
+  userController.listarUsuarios
+);
+
+router.put("/usuarios/:id", userController.atualizarUsuario);
+router.delete("/usuarios/:id", userController.deletarUsuario);
 
 // Exporta o router
 module.exports = router;
