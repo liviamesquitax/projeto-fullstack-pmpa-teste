@@ -5,42 +5,39 @@ const express = require("express");
 const router = express.Router();
 
 // Importa o controller
-const userController = require("../controllers/userController");
+const clientController = require("../controllers/clientController");
 
 // Importa os middlewares
 const authMiddleware = require("../middlewares/authMiddleware");
 const roleMiddleware = require("../middlewares/roleMiddleware");
 
-// Rotas do CRUD
-// Como no server.js você já usa app.use("/usuarios", userRoutes),
-// aqui não precisa repetir "/usuarios"
-router.post("/", userController.criarUsuario);
+// Todas as rotas exigem login e role admin/super
+router.post(
+  "/",
+  authMiddleware,
+  roleMiddleware(["admin", "super"]),
+  clientController.criarCliente
+);
 
-// Login
-router.post("/login", userController.loginUsuario);
-
-// Listar usuários (admin e super)
 router.get(
   "/",
   authMiddleware,
   roleMiddleware(["admin", "super"]),
-  userController.listarUsuarios
+  clientController.listarClientes
 );
 
-// Atualizar usuário (admin e super)
 router.put(
   "/:id",
   authMiddleware,
   roleMiddleware(["admin", "super"]),
-  userController.atualizarUsuario
+  clientController.atualizarCliente
 );
 
-// Deletar usuário (somente super)
 router.delete(
   "/:id",
   authMiddleware,
-  roleMiddleware(["super"]),
-  userController.deletarUsuario
+  roleMiddleware(["admin", "super"]),
+  clientController.deletarCliente
 );
 
 // Exporta o router
