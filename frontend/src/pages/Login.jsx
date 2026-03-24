@@ -12,9 +12,16 @@ function Login() {
   const { user, login } = useAuth();
 
   useEffect(() => {
-    if (user) {
-      navigate("/dashboard");
+    if (!user) {
+      return;
     }
+
+    if (["admin", "super"].includes(user.role)) {
+      navigate("/dashboard");
+      return;
+    }
+
+    navigate("/acesso-negado");
   }, [navigate, user]);
 
   const handleLogin = async (event) => {
@@ -27,7 +34,6 @@ function Login() {
       const { token } = response.data;
 
       login(token, email);
-      navigate("/dashboard");
     } catch (err) {
       setError("Email ou senha invalidos");
     } finally {

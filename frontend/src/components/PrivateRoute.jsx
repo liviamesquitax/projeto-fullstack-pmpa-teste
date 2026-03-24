@@ -17,7 +17,7 @@ function PrivateRoute({ allowedRoles }) {
   }
 
   if (allowedRoles && !allowedRoles.includes(user.role)) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/acesso-negado" replace />;
   }
 
   return <Outlet />;
