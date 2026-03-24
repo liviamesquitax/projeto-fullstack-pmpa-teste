@@ -1,6 +1,9 @@
 // Importa o Express
 const express = require("express");
 
+// Importa o CORS
+const cors = require("cors");
+
 // Importa a função de conexão
 const connectDB = require("./config/db");
 
@@ -24,6 +27,13 @@ connectDB();
 
 // Permite receber JSON no body
 app.use(express.json());
+
+// Habilita CORS para o frontend
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+  })
+);
 
 // Usa as rotas de usuários com prefixo /usuarios
 app.use("/usuarios", userRoutes);
