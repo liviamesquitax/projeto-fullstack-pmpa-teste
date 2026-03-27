@@ -2,10 +2,14 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 import { useAuth } from "../context/AuthContext";
+import { FiEye, FiEyeOff } from "react-icons/fi";
+import { toast } from "react-toastify";
+import Button from "../components/Button";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
@@ -36,6 +40,7 @@ function Login() {
       login(token, email);
     } catch (err) {
       setError("Email ou senha invalidos");
+      toast.error("Erro ao autenticar.");
     } finally {
       setIsLoading(false);
     }
@@ -67,21 +72,31 @@ function Login() {
 
           <label className="form-field">
             <span>Senha</span>
-            <input
-              type="password"
-              placeholder="Sua senha"
-              value={senha}
-              onChange={(event) => setSenha(event.target.value)}
-              className="input"
-              required
-            />
+            <div className="input-with-icon">
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Sua senha"
+                value={senha}
+                onChange={(event) => setSenha(event.target.value)}
+                className="input"
+                required
+              />
+              <button
+                type="button"
+                className="input-icon-button"
+                onClick={() => setShowPassword((prev) => !prev)}
+                aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
+              >
+                {showPassword ? <FiEyeOff /> : <FiEye />}
+              </button>
+            </div>
           </label>
 
           {error && <div className="error">{error}</div>}
 
-          <button className="button-primary" type="submit" disabled={isLoading}>
-            {isLoading ? "Entrando..." : "Entrar"}
-          </button>
+          <Button type="submit" isLoading={isLoading}>
+            {isLoading ? "Carregando..." : "Entrar"}
+          </Button>
         </form>
       </div>
     </div>

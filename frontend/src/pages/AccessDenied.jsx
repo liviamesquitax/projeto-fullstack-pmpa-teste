@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import Button from "../components/Button";
 
 function AccessDenied() {
   const navigate = useNavigate();
@@ -20,9 +21,9 @@ function AccessDenied() {
             Seu perfil ({user?.role || "user"}) nao tem acesso ao painel.
           </p>
         </div>
-        <button className="button-primary" type="button" onClick={handleLogout}>
+        <Button type="button" onClick={handleLogout}>
           Sair
-        </button>
+        </Button>
       </div>
     </div>
   );
